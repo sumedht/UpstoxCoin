@@ -1,6 +1,7 @@
 package com.sumedh.upstoxcoin.presentation.components
 
 import android.annotation.SuppressLint
+import android.widget.Toast
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -15,6 +16,7 @@ import androidx.compose.material.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
@@ -65,6 +67,12 @@ fun CryptoCurrencyScreen(
                     Divider(color = Color.Gray, thickness = 1.dp)
                 }
             }
+        }
+
+        if (viewModel.cryptoCoins.value.isLoading) {
+            CircularProgressIndicator(modifier = Modifier.align(Alignment.CenterHorizontally))
+        } else if (viewModel.cryptoCoins.value.error.isNotEmpty()) {
+            Toast.makeText(LocalContext.current, viewModel.cryptoCoins.value.error, Toast.LENGTH_LONG).show()
         }
 
     }

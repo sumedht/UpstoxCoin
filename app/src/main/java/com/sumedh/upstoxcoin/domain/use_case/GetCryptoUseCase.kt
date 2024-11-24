@@ -18,10 +18,9 @@ class GetCryptoUseCase @Inject constructor(
         try {
             emit(Resource.Loading())
             val response = repository.getCryptoCoins().map { it.toCrypto() }
-            //response.error?.let { emit(Resource.Error(response.error.toString())) }
             emit(Resource.Success(response))
         } catch (e: HttpException) {
-            emit(Resource.Error(e.localizedMessage?:"An unexpected error occured"))
+            emit(Resource.Error(e.localizedMessage?:"An unexpected error occurred"))
         } catch (e: IOException) {
             emit(Resource.Error("Couldn't reach server. Check your internet connectivity"))
         }
